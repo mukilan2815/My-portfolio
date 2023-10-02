@@ -5,7 +5,7 @@ module.exports = {
   ], theme: {
     extend: {
       colors: {
-        'redd': '#ea4343',
+        'redd': 'var(--redd-color, #ea4343)',
         'josefin': ['Josefin Sans', 'sans'],
       },
     },

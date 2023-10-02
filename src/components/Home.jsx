@@ -7,7 +7,11 @@ const Home = () => {
   const [isFrontendDeveloper, setIsFrontendDeveloper] = useState(true);
 
   const toggleText = () => setIsFrontendDeveloper((prevState) => !prevState);
+  const [showSettings, setShowSettings] = useState(true);
 
+  const toggleSettings = () => {
+    setShowSettings(!showSettings);
+  };
   useEffect(() => {
     const textToType = isFrontendDeveloper
       ? "Frontend Developer"
@@ -26,7 +30,9 @@ const Home = () => {
 
     return () => clearInterval(typingInterval);
   }, [isFrontendDeveloper]);
-
+  const changeReddColor = (color) => {
+    document.documentElement.style.setProperty("--redd-color", color);
+  };
   return (
     <div className="flex my-4 scroll-smooth">
       <div className="icons hidden md:block justify-center my-36 ml-10">
@@ -58,8 +64,48 @@ const Home = () => {
         </div>
       </div>
 
-      <div className="fixed bg-black p-3 right-0 cursor-pointer">
-        <AiFillSetting size={24} color="white" className="animate-spin" />
+      <div className="fixed top-40 right-0 md:-ml-8 flex justify-end">
+        <AiFillSetting
+          size={30}
+          color="white"
+          onClick={toggleSettings}
+          className="animate-spin mt-2 drop-shadow-lg"
+        />
+        <div
+          className={`w-auto p-3 h-fit rounded shadow-2xl hover:shadow-sm transition-all duration-500 ${
+            showSettings ? "-mr-40" : ""
+          }`}
+        >
+          {" "}
+          <div className="flex justify-evenly flex-wrap">
+            <button
+              className="rounded-full m-1 w-10 h-10 bg-orange-600 hover:scale-125 transition-all duration-400"
+              onClick={() => changeReddColor("#ea4343")}
+            ></button>
+            <button
+              className="rounded-full m-1 w-10 h-10 bg-cyan-400 hover:scale-125 transition-all duration-400"
+              onClick={() => changeReddColor("#00bcd4")}
+            ></button>
+            <button
+              className="rounded-full m-1 w-10 h-10 bg-red-600 hover:scale-125 transition-all duration-400"
+              onClick={() => changeReddColor("#ff0000")}
+            ></button>
+          </div>
+          <div className="flex justify-around">
+            <button
+              className="rounded-full m-1 w-10 h-10 bg-amber-500 hover:scale-125 transition-all duration-400"
+              onClick={() => changeReddColor("#ffc107")}
+            ></button>
+            <button
+              className="rounded-full m-1 w-10 h-10 bg-green-600 hover:scale-125 transition-all duration-400"
+              onClick={() => changeReddColor("#4caf50")}
+            ></button>
+            <button
+              className="rounded-full m-1 w-10 h-10 bg-indigo-500 hover:scale-125 transition-all duration-400"
+              onClick={() => changeReddColor("#3f51b5")}
+            ></button>
+          </div>
+        </div>
       </div>
     </div>
   );

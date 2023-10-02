@@ -93,6 +93,7 @@ const Third = () => {
           className="flex items-center justify-center w-24 h-24 p-2 m-2 bg-slate-200 border rounded-lg shadow-md transition-transform transform hover:scale-110 hover:shadow-md"
         />
       </div>
+      <div className="w-40 h-20 border- border-black"></div>
     </div>
   );
 };
