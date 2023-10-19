@@ -69,7 +69,7 @@ const Home = () => {
           size={30}
           color="white"
           onClick={toggleSettings}
-          className="animate-spin mt-2 drop-shadow-lg"
+          className="animate-spin mt-2 drop-shadow-lg bg-black"
         />
         <div
           className={`w-auto p-3 h-fit rounded shadow-2xl hover:shadow-sm transition-all duration-500 ${

@@ -1,18 +1,39 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import quotes from "../secondpic.jpg";
+
 const Second = () => {
+  const [scrollPosition, setScrollPosition] = useState(0);
+
+  useEffect(() => {
+    // Update the scroll position when the user scrolls
+    const handleScroll = () => {
+      setScrollPosition(window.scrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      // Remove the event listener when the component unmounts
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
     <div className="flex bg-slate-100 justify-evenly scroll-smooth">
       <div className="left mt-24 rounded hidden md:block">
+        <div
+          className={`h-48 w-52 rounded bg-redd absolute transition-transform transform ${
+            scrollPosition > 0 ? "translate-x-3" : ""
+          }`}
+        ></div>
         <img
           src={quotes}
           alt="quotes"
           height={300}
           width={300}
           data-aos="fade-up"
-          className="m-10 rounded-md z-10"
+          className="m-10 rounded-md "
         />
-        <div className="h-48 w-52 bg-redd z-20 -mt-32"></div>
       </div>
       <div className="middle my-24">
         <h3 className="capitalize text-redd font-bold m-5">About me</h3>
@@ -23,7 +44,7 @@ const Second = () => {
           Web<span className="text-redd"> Designer</span>
         </h1>
         <h3 className="capitalize font-bold text-2xl m-5">
-          From India , Tamilnadu
+          From India, Tamilnadu
         </h3>
         <p className="text-gray-500 font-sans m-5 md:max-w-md">
           I am Mukilan T, a BE Computer Science student at Karpagam Academy of
@@ -36,8 +57,8 @@ const Second = () => {
           Download CV
         </button>
       </div>
-
     </div>
   );
 };
+
 export default Second;

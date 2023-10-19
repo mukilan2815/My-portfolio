@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>AI Integration</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+
+<body>
+    <style>
+        /* Apply some basic styles to the body and header */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        /* Style the form */
+        form {
+            text-align: center;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Style the labels and select boxes */
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        /* Style the text area */
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        /* Style the file input button */
+        input[type="file"] {
+            display: none;
+        }
+
+        /* Style the "Record Audio" button */
+        #record_button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        #record_button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Style the results section */
+        h2 {
+            margin-top: 20px;
+            color: #333;
+        }
+
+        /* Style the paragraphs within the results section */
+        p {
+            font-size: 18px;
+            line-height: 1.4;
+            margin-bottom: 20px;
+        }
+    </style>
+    <h1>AI Integration</h1>
+    <form method="POST" enctype="multipart/form-data">
+        <label for="user_choice">Select an action:</label>
+        <select name="user_choice" id="user_choice">
+            <option value="summarize">Summarize</option>
+            <option value="grammar">Grammar Correction</option>
+            <option value="translate">Translate to Tamil</option>
+        </select>
+        <br><br>
+
+        <!-- Input Type Dropdown -->
+        <label for="input_type">Select input type:</label>
+        <select name="input_type" id="input_type">
+            <option value="text">Text</option>
+            <option value="file">File</option>
+            <option value="audio">Audio</option>
+        </select>
+        <br><br>
+
+        <!-- Text Input -->
+        <div id="text_input" style="display:none;">
+            <label for="input_text">Enter the input text:</label>
+            <textarea name="input_text" rows="4" cols="50"></textarea>
+        </div>
+
+        <!-- File Input -->
+        <div id="file_input" style="display:none;">
+            <label for="file">Upload a file:</label>
+            <input type="file" name="file">
+        </div>
+
+        <!-- Audio Input -->
+        <div id="audio_input" style="display:none;">
+            <p>Click the "Record Audio" button to record audio:</p>
+            <button id="record_button" type="button" onclick="recordAudio()">Record Audio</button>
+            <p id="status"></p>
+            <textarea id="audio_text" name="audio_text" rows="4" cols="50" readonly></textarea>
+        </div>
+
+        <br><br>
+        <input type="submit" value="Submit">
+    </form>
+
+    <!-- Display results here -->
+    {% if summary_text %}
+    <h2>Summarized Text:</h2>
+    <p>{{ summary_text }}</p>
+    {% endif %}
+
+    {% if corrected_text %}
+    <h2>Corrected Text:</h2>
+    <p>{{ corrected_text }}</p>
+    {% endif %}
+
+    {% if translated_text %}
+    <h2>Translated Tamil Text:</h2>
+    <p>{{ translated_text }}</p>
+    {% endif %}
+
+    <script>
+
+        document.getElementById("user_choice").addEventListener("change", function () {
+            var choice = this.value;
+            document.getElementById("text_input").style.display = choice === "summarize" || choice === "grammar" || choice === "translate" ? "block" : "none";
+        });
+
+        document.getElementById("input_type").addEventListener("change", function () {
+            var inputType = this.value;
+            document.getElementById("text_input").style.display = inputType === "text" ? "block" : "none";
+            document.getElementById("file_input").style.display = inputType === "file" ? "block" : "none";
+            document.getElementById("audio_input").style.display = inputType === "audio" ? "block" : "none";
+        });
+
+        function recordAudio() {
+            var recordButton = document.getElementById("record_button");
+            var audioText = document.getElementById("audio_text");
+            var status = document.getElementById("status");
+
+            status.innerHTML = "Recording...";
+            audioText.value = "";
+
+            var recognizer = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+            recognizer.continuous = true;
+
+            recognizer.onresult = function (event) {
+                var result = event.results[event.results.length - 1];
+                var transcript = result[0].transcript;
+                audioText.value = transcript;
+                status.innerHTML = "Recording complete.";
+                recognizer.stop();
+            };
+
+            recognizer.start();
+        }
+    </script>
+</body>
+
+</html>

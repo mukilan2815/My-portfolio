@@ -1,0 +1,77 @@
+/* Apply some basic styles to the body and header */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+/* Style the form */
+form {
+    text-align: center;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Style the labels and select boxes */
+label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+/* Style the text area */
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+/* Style the file input button */
+input[type="file"] {
+    display: none;
+}
+
+/* Style the "Record Audio" button */
+#record_button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#record_button:hover {
+    background-color: #0056b3;
+}
+
+/* Style the results section */
+h2 {
+    margin-top: 20px;
+    color: #333;
+}
+
+/* Style the paragraphs within the results section */
+p {
+    font-size: 18px;
+    line-height: 1.4;
+    margin-bottom: 20px;
+}
